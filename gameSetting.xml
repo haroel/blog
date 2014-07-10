@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<root>
+    <info url="http://haroel.github.io/blog/" version="v1.0.1"/>
+    <menus>
+        <item icon="Icon/profile.png" id="1" label="个人简介" style = "1" color = ""/>
+        <item icon="Icon/edution.png" id="2" label="教育经历" style = "1" color = ""/>
+        <item icon="Icon/message.png" id="3" label="行业参与" style = "0" color = ""/>
+        <item icon="Icon/rocket.png" id="4" label="技能"  style = "0" color = ""/>
+        
+        <item icon="Icon/work.png" id="5" label="工作经验" style = "1" color = ""/>
+        <item icon="Icon/papers.png" id="6" label="项目经验" style = "1" color = ""/>
+        <item icon="Icon/contract.png" id="7" label="联系" style = "1" color = ""/>
+    </menus>
+</root>

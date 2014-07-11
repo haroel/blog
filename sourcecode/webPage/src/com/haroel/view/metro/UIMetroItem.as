@@ -29,6 +29,19 @@ package com.haroel.view.metro
 		{
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE,initHandler);
+			this.addEventListener(Event.REMOVED_FROM_STAGE,removeHandler);
+		}
+		private function removeHandler(evt:Event):void
+		{
+			_material.removeEventListener(MouseEvent.CLICK,mouseHandler);
+			_material.removeEventListener(MouseEvent.MOUSE_DOWN,mouseHandler);
+			_material.removeEventListener(MouseEvent.MOUSE_UP,mouseHandler);
+			_material.removeEventListener(MouseEvent.ROLL_OUT,mouseHandler);
+			_material.removeEventListener(MouseEvent.ROLL_OVER,mouseHandler);
+			
+			this.removeEventListener(Event.ADDED_TO_STAGE, initHandler);
+			this.removeEventListener(Event.REMOVED_FROM_STAGE, removeHandler);
+
 		}
 		private function initHandler(evt:Event):void
 		{
@@ -113,8 +126,10 @@ package com.haroel.view.metro
 			_labelPoint.x = (TextField)(_material.m_label).x;
 			_labelPoint.y = (TextField)(_material.m_label).y;
 
+//			(TextField)(_material.m_label).
 			_material.buttonMode = true;
-			_material
+			_material.mouseChildren = false;
+//			_material.mouseEnabled = false;
 		}
 		
 		public function getMaterial():MovieClip

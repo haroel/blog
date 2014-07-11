@@ -6,7 +6,7 @@ package com.haroel.events
 	{
 		private var _param:Object;
 		
-		public static const METRO_ITEM_CLICK = "METRO_ITEM_CLICK";
+		public static const METRO_ITEM_CLICK:String = "METRO_ITEM_CLICK";
 		
 		public function DDEvent(type:String, param:Object, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

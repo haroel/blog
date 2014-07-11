@@ -13,6 +13,7 @@ package
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
+	import flash.system.Capabilities;
 	import flash.system.Security;
 	import flash.text.TextField;
 	import flash.ui.ContextMenu;
@@ -24,6 +25,8 @@ package
 		public static const stageWidth:uint = 1000;
 		
 		public static const stageHeight:uint = 600;
+		
+		
 		
 		private var _mainUIController:MainUIController;
 		
@@ -54,6 +57,8 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			Security.allowDomain("*");
 			
+			var os_name:String = flash.system.Capabilities.os;
+			
 			this.graphics.clear();
 			this.graphics.beginFill(0x000000,1);
 			this.graphics.drawRect(0,0,1000,600);
@@ -69,16 +74,9 @@ package
 			_mainUIController.setRoot(_uiLayer);
 			
 			ResManager.getInstance().setLoaderLayer(_loaderLayer);
-			
+			//读取配置
 			ModelLocator.getInstance();
-			ModelLocator.getInstance().addEventListener(Event.COMPLETE,initCompleteHandler);
-		}
-		private function initCompleteHandler(evt:Event):void
-		{
-			ModelLocator.getInstance().removeEventListener(Event.COMPLETE,initCompleteHandler);
-			
 			ResManager.getInstance().loadAssets("Webpage.swf");
-			configRightMenu();
 			_loaderLayer.addEventListener("MainResLoader_remove",initUI);
 		}
 		
@@ -87,6 +85,7 @@ package
 			_loaderLayer.removeEventListener("MainResLoader_remove",initUI);
 
 			_mainUIController.initView();
+			configRightMenu();
 		}
 		private function configRightMenu():void
 		{

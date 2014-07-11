@@ -2,6 +2,7 @@ package com.haroel.view
 {
 	import com.greensock.*;
 	import com.haroel.ResManager;
+	import com.haroel.events.DDEvent;
 	import com.haroel.model.MenuItemVO;
 	import com.haroel.model.ModelLocator;
 	import com.haroel.util.Hash;
@@ -12,7 +13,7 @@ package com.haroel.view
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
-	
+
 	public class MainUIController extends EventDispatcher
 	{
 		private var _root:Sprite;
@@ -20,6 +21,8 @@ package com.haroel.view
 		private var _material:MovieClip;
 
 		private var _menuContainer:MovieClip;
+		
+		private var _popUpLayer:MovieClip;
 		
 		private var _menuItemHash:Hash = null;
 		
@@ -38,7 +41,11 @@ package com.haroel.view
 			_root.addChild(_material);
 			
 			_menuContainer = _material.m_mainContainer as MovieClip;
+			_popUpLayer = _material.m_popUpLayer as MovieClip;
+			
 			createItems();
+			
+			_material.addEventListener(DDEvent.METRO_ITEM_CLICK,metroClickHandler);
 		}
 		
 		public function createItems():void
@@ -82,6 +89,11 @@ package com.haroel.view
 				}
 				_menuContainer.addChild(item);
 			}
+		}
+		
+		private function metroClickHandler(evt:DDEvent):void
+		{
+			
 		}
 	}
 }

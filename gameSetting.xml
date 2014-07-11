@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <root>
-    <info url="http://haroel.github.io/blog/" version="v1.0.1"/>
+    <info url="http://haroel.github.io/blog/Main.html" version="v1.0.1"/>
     <menus>
         <item icon="Icon/profile.png" id="1" label="个人简介" style = "1" color = ""/>
         <item icon="Icon/edution.png" id="2" label="教育经历" style = "1" color = ""/>

@@ -2,13 +2,13 @@
 <root>
     <info url="http://haroel.github.io/blog/Main.html" version="v1.0.1"/>
     <menus>
-        <item icon="Icon/profile.png" id="1" label="个人简介" style = "1" color = ""/>
-        <item icon="Icon/edution.png" id="2" label="教育经历" style = "1" color = ""/>
-        <item icon="Icon/message.png" id="3" label="行业参与" style = "0" color = ""/>
-        <item icon="Icon/rocket.png" id="4" label="技能"  style = "0" color = ""/>
+        <item icon="BProfile" id="1" label="个人简介" style = "1" color = "0x5f3bb9"/>
+        <item icon="BEdu" id="2" label="教育经历" style = "1" color = "0xbe1e50"/>
+        <item icon="BMessage" id="3" label="行业参与" style = "0" color = "0x00ccff"/>
+        <item icon="BRocket" id="4" label="技能"  style = "0" color = "0xe96e28"/>
         
-        <item icon="Icon/work.png" id="5" label="工作经验" style = "1" color = ""/>
-        <item icon="Icon/papers.png" id="6" label="项目经验" style = "1" color = ""/>
-        <item icon="Icon/contract.png" id="7" label="联系" style = "1" color = ""/>
+        <item icon="BPapers" id="5" label="项目经验" style = "1" color = "0x62ba0e"/>
+        <item icon="BWork" id="6" label="工作经验" style = "1" color = "0xe96e28"/>
+        <item icon="BContract" id="7" label="联系" style = "1" color = "0x00ccff"/>
     </menus>
 </root>

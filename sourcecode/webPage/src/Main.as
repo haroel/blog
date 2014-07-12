@@ -21,7 +21,7 @@ package
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
 	
-	[SWF(width="1000",height="600",frameRate="24",backgroundColor="#f1f1f1")]
+	[SWF(width="1000",height="600",frameRate="24",backgroundColor="#ffffff")]
 	public class Main extends Sprite
 	{
 		public static const stageWidth:uint = 1000;
@@ -62,10 +62,6 @@ package
 			Security.allowDomain("*");
 			
 			trace("The running system is " + flash.system.Capabilities.os)
-			this.graphics.clear();
-			this.graphics.beginFill(0x000000,1);
-			this.graphics.drawRect(0,0,1000,600);
-			this.graphics.endFill();
 			
 			_uiLayer = new Sprite();
 			_loaderLayer = new Sprite();

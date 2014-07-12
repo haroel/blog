@@ -1,10 +1,11 @@
 package com.haroel.view
 {
-	import com.greensock.*;
 	import com.haroel.ResManager;
 	import com.haroel.events.DDEvent;
+	import com.haroel.events.UIEventDispatcher;
 	import com.haroel.model.MenuItemVO;
 	import com.haroel.model.ModelLocator;
+	import com.haroel.model.ResourceConfig;
 	import com.haroel.util.Hash;
 	import com.haroel.view.metro.UIMetroItem;
 	
@@ -21,14 +22,17 @@ package com.haroel.view
 		private var _material:MovieClip;
 
 		private var _menuContainer:MovieClip;
-		
-		private var _popUpLayer:MovieClip;
-		
+				
 		private var _menuItemHash:Hash = null;
+		
+		
+		private var _popUpController:PopUpViewController;
 		
 		public function MainUIController(target:IEventDispatcher=null)
 		{
 			super(target);
+			
+//			new tlf
 		}
 		public function setRoot(spt:Sprite):void
 		{
@@ -36,16 +40,19 @@ package com.haroel.view
 		}
 		public function initView():void
 		{
-			var cls:Class = ResManager.getResSwf("Webpage","MainUI");
+			if (!ResManager.getInstance().isResourceExist(ResourceConfig.RES_FILE_NAME))
+			{
+				return;
+			}
+			var cls:Class = ResManager.getResSwf(ResourceConfig.RES_FILE_NAME,"MainUI");
 			_material = new cls();
 			_root.addChild(_material);
 			
 			_menuContainer = _material.m_mainContainer as MovieClip;
-			_popUpLayer = _material.m_popUpLayer as MovieClip;
+			_popUpController = new PopUpViewController(_material.m_popUpLayer as MovieClip);
 			
 			createItems();
 			
-			_material.addEventListener(DDEvent.METRO_ITEM_CLICK,metroClickHandler);
 		}
 		
 		public function createItems():void
@@ -71,10 +78,9 @@ package com.haroel.view
 				var info:MenuItemVO = arr[i];
 				var item:UIMetroItem = new UIMetroItem();
 				item.setInfo(info);
-				
+				_menuContainer.addChild(item);
+
 				item.playCreateAnimation(startPoint);
-//				item.x = startPoint.x;
-//				item.y = startPoint.y;
 				
 				_menuItemHash.addItem(info.id,item);
 				
@@ -87,13 +93,8 @@ package com.haroel.view
 				{
 					startPoint.x += (item.getMaterial().width + gap);
 				}
-				_menuContainer.addChild(item);
 			}
 		}
-		
-		private function metroClickHandler(evt:DDEvent):void
-		{
-			
-		}
+
 	}
 }

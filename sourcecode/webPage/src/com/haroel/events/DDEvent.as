@@ -8,6 +8,13 @@ package com.haroel.events
 		
 		public static const METRO_ITEM_CLICK:String = "METRO_ITEM_CLICK";
 		
+		public static const MAIN_LOADER_REMOVE:String = "MAIN_LOADER_REMOVE";
+
+		public static const RESMANAGER_START:String = "RESMANAGER_START";
+		public static const RESMANAGER_PROGRESS:String = "RESMANAGER_PROGRESS";
+		public static const RESMANAGER_COMPLETE:String = "RESMANAGER_COMPLETE";
+		public static const RESMANAGER_ERROR:String = "RESMANAGER_ERROR";
+
 		public function DDEvent(type:String, param:Object, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);

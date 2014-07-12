@@ -1,17 +1,15 @@
 package com.haroel.view.metro
 {
-	import com.greensock.*;
-	import com.greensock.easing.*;
+	import com.greensock.TweenLite;
 	import com.haroel.ResManager;
 	import com.haroel.events.DDEvent;
+	import com.haroel.events.UIEventDispatcher;
 	import com.haroel.model.MenuItemVO;
 	
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
 	import flash.geom.Point;
@@ -29,7 +27,6 @@ package com.haroel.view.metro
 		{
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE,initHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE,removeHandler);
 		}
 		private function removeHandler(evt:Event):void
 		{
@@ -49,7 +46,8 @@ package com.haroel.view.metro
 			{
 				this.removeEventListener(Event.ADDED_TO_STAGE, initHandler);
 			}
-			
+			this.addEventListener(Event.REMOVED_FROM_STAGE,removeHandler);
+
 			_material.addEventListener(MouseEvent.CLICK,mouseHandler);
 
 			_material.addEventListener(MouseEvent.MOUSE_DOWN,mouseHandler);
@@ -64,7 +62,7 @@ package com.haroel.view.metro
 			{
 				case MouseEvent.CLICK:
 				{
-					this.dispatchEvent(new DDEvent(DDEvent.METRO_ITEM_CLICK,_menuItemVO.id));
+					UIEventDispatcher.getInstance().dispatchEvent(new DDEvent(DDEvent.METRO_ITEM_CLICK,_menuItemVO));
 					break;
 				}
 				case MouseEvent.MOUSE_DOWN:
@@ -84,7 +82,7 @@ package com.haroel.view.metro
 				}
 				case MouseEvent.ROLL_OVER:
 				{
-					TweenLite.to((TextField)(_material.m_label), 0.5, {y:_labelPoint.y - 6});
+					TweenLite.to((TextField)(_material.m_label), 0.5, {y:_labelPoint.y - 8});
 					break;
 				}
 			}
@@ -126,7 +124,6 @@ package com.haroel.view.metro
 			_labelPoint.x = (TextField)(_material.m_label).x;
 			_labelPoint.y = (TextField)(_material.m_label).y;
 
-//			(TextField)(_material.m_label).
 			_material.buttonMode = true;
 			_material.mouseChildren = false;
 //			_material.mouseEnabled = false;
@@ -136,12 +133,16 @@ package com.haroel.view.metro
 		{
 			return _material;
 		}
+		public function get menuItemInfo():MenuItemVO
+		{
+			return this._menuItemVO;
+		}
 		public function playCreateAnimation(p:Point):void
 		{
 			x = p.x;
 			y = -300;
 			
-			TweenLite.to(this, 0.5, {delay:Math.random(),y:p.y});
+			TweenLite.to(this, 0.5, {delay:Math.random() * 0.8,y:p.y});
 		}
 	}
 }

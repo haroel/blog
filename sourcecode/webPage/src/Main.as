@@ -1,7 +1,9 @@
 package
 {
 	import com.haroel.ResManager;
+	import com.haroel.events.DDEvent;
 	import com.haroel.model.ModelLocator;
+	import com.haroel.view.MainResLoader;
 	import com.haroel.view.MainUIController;
 	
 	import flash.display.Bitmap;
@@ -33,6 +35,8 @@ package
 		private var _uiLayer:Sprite;
 		private var _loaderLayer:Sprite;
 		
+		private var _mainResLoader:MainResLoader;
+		
 		public function Main()
 		{
 			super();
@@ -57,8 +61,7 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			Security.allowDomain("*");
 			
-			var os_name:String = flash.system.Capabilities.os;
-			
+			trace("The running system is " + flash.system.Capabilities.os)
 			this.graphics.clear();
 			this.graphics.beginFill(0x000000,1);
 			this.graphics.drawRect(0,0,1000,600);
@@ -73,16 +76,71 @@ package
 			_mainUIController = new MainUIController();
 			_mainUIController.setRoot(_uiLayer);
 			
-			ResManager.getInstance().setLoaderLayer(_loaderLayer);
 			//读取配置
 			ModelLocator.getInstance();
+			
+			ResManager.getInstance().addEventListener(Event.COMPLETE,mainResLoadCompleteHandler);
+			
+			ResManager.getInstance().addEventListener(DDEvent.RESMANAGER_START,resManagerHandler);
+			ResManager.getInstance().addEventListener(DDEvent.RESMANAGER_PROGRESS,resManagerHandler);
+			ResManager.getInstance().addEventListener(DDEvent.RESMANAGER_COMPLETE,resManagerHandler);
+			ResManager.getInstance().addEventListener(DDEvent.RESMANAGER_ERROR,resManagerHandler);
+
 			ResManager.getInstance().loadAssets("Webpage.swf");
-			_loaderLayer.addEventListener("MainResLoader_remove",initUI);
+
+			_loaderLayer.addEventListener(DDEvent.MAIN_LOADER_REMOVE,initUI);
 		}
-		
+		private function resManagerHandler(evt:DDEvent):void
+		{
+			switch(evt.type)
+			{
+				case DDEvent.RESMANAGER_START:
+				{
+					_mainResLoader = new MainResLoader();
+					_mainResLoader.x = (Main.stageWidth - _mainResLoader.width)/2;							
+					_mainResLoader.y = (Main.stageHeight - _mainResLoader.height)/2;
+					_loaderLayer.addChild(_mainResLoader);
+					break;
+				}
+				case DDEvent.RESMANAGER_PROGRESS:
+				{
+					_mainResLoader.setProgress(evt.param as int);
+					break;
+				}
+				case DDEvent.RESMANAGER_COMPLETE:
+				{
+					mainUILoadOverHandler();
+					break;
+				}
+				case DDEvent.RESMANAGER_ERROR:
+				{
+					mainUILoadOverHandler();
+					break;
+				}
+				default:
+				{
+					mainUILoadOverHandler();
+					break;
+				}
+			}
+		}
+		private function mainUILoadOverHandler():void
+		{
+			ResManager.getInstance().removeEventListener(DDEvent.RESMANAGER_START,resManagerHandler);
+			ResManager.getInstance().removeEventListener(DDEvent.RESMANAGER_PROGRESS,resManagerHandler);
+			ResManager.getInstance().removeEventListener(DDEvent.RESMANAGER_COMPLETE,resManagerHandler);
+			ResManager.getInstance().removeEventListener(DDEvent.RESMANAGER_ERROR,resManagerHandler);
+			
+			_mainResLoader.removeLoader();
+		}
+		private function mainResLoadCompleteHandler(evt:Event):void
+		{
+			ResManager.getInstance().removeEventListener(Event.COMPLETE,mainResLoadCompleteHandler);			
+		}
 		private function initUI(evt:Event):void
 		{
-			_loaderLayer.removeEventListener("MainResLoader_remove",initUI);
+			_mainResLoader = null;
+			_loaderLayer.removeEventListener(DDEvent.MAIN_LOADER_REMOVE,initUI);
 
 			_mainUIController.initView();
 			configRightMenu();

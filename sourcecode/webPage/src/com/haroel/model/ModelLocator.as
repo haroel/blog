@@ -79,6 +79,8 @@ package com.haroel.model
 		}
 		private function httpHandler(evt:HTTPStatusEvent):void
 		{
+			trace("state");
+
 		}
 	}
 }

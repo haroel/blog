@@ -1,54 +1,43 @@
 package com.haroel.view
 {
-	import com.greensock.*;
-	import com.greensock.easing.*;
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Bounce;
+	import com.haroel.events.DDEvent;
 	
-	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.text.TextField;
 	
-	public class MainResLoader
+	public class MainResLoader extends MainLoader
 	{
-		private var _loader:MainLoader;
-		private var _parent:Sprite;
+		private static const MAINRESLOADER:String = "MainResLoader";
 		
-		public function MainResLoader(container:Sprite)
+		public function MainResLoader()
 		{
 			super();
-			_parent = container;
+			this.addEventListener(Event.ADDED_TO_STAGE,init);
 		}
 		
-		public function init():void
+		public function init(evt:Event):void
 		{
-			_loader = new MainLoader();
-			_loader.x = (Main.stageWidth - _loader.width)/2;
-			_loader.y = (Main.stageHeight - _loader.height)/2;
-			_loader.progressBar.scaleX = 0;
-			_loader.progressLabel.text = "0%";
-			_parent.addChild(_loader);
+			this.removeEventListener(Event.ADDED_TO_STAGE,init);
+			this.name = MAINRESLOADER;
+			
+			this.progressBar.width = 0;
+			this.progressLabel.text = "0%";
 		}
 		public function setProgress(value:int):void
 		{
-			_loader.progressLabel.text = value.toString() + "%";
-			_loader.progressBar.scaleX = 1.0 * value/100;
+			progressLabel.text = value.toString() + "%";
+			progressBar.scaleX = 1.0 * value/100;
 		}
 
-		public function get mainLoader():MainLoader
+		public function removeLoader():void
 		{
-			return _loader;
-		}
-		public function cleanLoader():void
-		{
-			TweenMax.to(_loader, 0.4, {alpha:0.1, ease:Bounce.easeInOut, onComplete:removeNode});
+			TweenMax.to(this, 0.3, {alpha:0.1, ease:Bounce.easeInOut, onComplete:removeNode});
 		}
 		private function removeNode():void
 		{
-			_parent.dispatchEvent(new Event("MainResLoader_remove"));
-			while (_parent.numChildren > 0)
-			{
-				_parent.removeChildAt(0);
-			}
-			
+			parent.dispatchEvent(new DDEvent(DDEvent.MAIN_LOADER_REMOVE,null));
+			parent.removeChild(this);
 		}
 	}
 }

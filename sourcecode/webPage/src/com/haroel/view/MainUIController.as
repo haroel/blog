@@ -1,5 +1,6 @@
 package com.haroel.view
 {
+	import com.greensock.TweenLite;
 	import com.haroel.ResManager;
 	import com.haroel.events.DDEvent;
 	import com.haroel.events.UIEventDispatcher;
@@ -46,6 +47,12 @@ package com.haroel.view
 			}
 			var cls:Class = ResManager.getResSwf(ResourceConfig.RES_FILE_NAME,"MainUI");
 			_material = new cls();
+			(MovieClip)(_material.m_bg).alpha = 0;
+//			(MovieClip)(_material.m_bg).scaleX =(MovieClip)(_material.m_bg).scaleY = 0.8;
+			
+//			new TweenLite
+			TweenLite.to(_material.m_bg,0.6,{alpha:1.0});
+			
 			_root.addChild(_material);
 			
 			_menuContainer = _material.m_mainContainer as MovieClip;

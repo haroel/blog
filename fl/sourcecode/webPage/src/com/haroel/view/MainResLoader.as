@@ -6,9 +6,13 @@ package com.haroel.view
 	
 	import flash.events.Event;
 	
+	import morn.core.handlers.Handler;
+	
 	public class MainResLoader extends MainLoader
 	{
 		private static const MAINRESLOADER:String = "MainResLoader";
+		
+		private var _removeHandler:Handler = null;
 		
 		public function MainResLoader()
 		{
@@ -23,6 +27,7 @@ package com.haroel.view
 			
 			this.progressBar.width = 0;
 			this.progressLabel.text = "0%";
+			
 		}
 		public function setProgress(value:int):void
 		{
@@ -30,13 +35,17 @@ package com.haroel.view
 			progressBar.scaleX = 1.0 * value/100;
 		}
 
-		public function removeLoader():void
+		public function removeLoader(removeHandler:Handler = null):void
 		{
+			this._removeHandler = removeHandler;
 			TweenMax.to(this, 0.3, {alpha:0.1, ease:Bounce.easeInOut, onComplete:removeNode});
 		}
 		private function removeNode():void
 		{
-			parent.dispatchEvent(new DDEvent(DDEvent.MAIN_LOADER_REMOVE,null));
+			if (_removeHandler != null)
+			{
+				_removeHandler.execute()
+			}
 			parent.removeChild(this);
 		}
 	}

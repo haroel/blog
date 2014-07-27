@@ -1,5 +1,5 @@
 /**
- * Morn UI Version 2.5.1215 http://www.mornui.com/
+ * Morn UI Version 3.0 http://www.mornui.com/
  * Feedback yungzhu@gmail.com http://weibo.com/newyung
  */
 package morn.core.components {
@@ -8,17 +8,18 @@ package morn.core.components {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
+	import morn.core.events.DragEvent;
 	import morn.core.events.UIEvent;
 	import morn.core.handlers.Handler;
-	import morn.editor.core.IList;
+	import morn.editor.core.IRender;
 	
-	/**选择单元格改变后触发*/
-	[Event(name="select",type="flash.events.Event")]
+	/**selectedIndex属性变化时调度*/
+	[Event(name="change",type="flash.events.Event")]
 	/**单元格渲染时触发*/
 	[Event(name="listRender",type="morn.core.events.UIEvent")]
 	
 	/**列表*/
-	public class List extends Box implements IList, IItem {
+	public class List extends Box implements IRender, IItem {
 		protected var _content:Box;
 		protected var _scrollBar:ScrollBar;
 		protected var _itemRender:*;
@@ -27,7 +28,7 @@ package morn.core.components {
 		protected var _spaceX:int;
 		protected var _spaceY:int;
 		protected var _cells:Vector.<Box> = new Vector.<Box>();
-		protected var _array:Array = [];
+		protected var _array:Array;
 		protected var _startIndex:int;
 		protected var _selectedIndex:int = -1;
 		protected var _selectHandler:Handler;
@@ -67,7 +68,7 @@ package morn.core.components {
 		public function set scrollBar(value:ScrollBar):void {
 			if (_scrollBar != value) {
 				_scrollBar = value;
-				if (_scrollBar) {
+				if (value) {
 					addChild(_scrollBar);
 					_scrollBar.target = this;
 					_scrollBar.addEventListener(Event.CHANGE, onScrollBarChange);
@@ -140,6 +141,25 @@ package morn.core.components {
 				_cells.length = 0;
 				//获取滚动条
 				scrollBar = getChildByName("scrollBar") as ScrollBar;
+				
+				//自适应宽高
+				cell = _itemRender is XML ? View.createComp(_itemRender) as Box : new _itemRender();
+				if (_isVerticalLayout && !isNaN(_height)) {
+					_repeatY = Math.round(_height / (cell.height + _spaceY));
+					if (_scrollBar) {
+						_scrollBar.height = _height;
+					}
+				} else if (!_isVerticalLayout && !isNaN(_width)) {
+					_repeatX = Math.round(_width / (cell.width + _spaceX));
+					if (_scrollBar) {
+						_scrollBar.width = _width;
+					}
+				}
+				var cellWidth:Number = cell.width + spaceX;
+				var cellHeight:Number = cell.height + spaceY;
+				_cellSize = _isVerticalLayout ? cellHeight : cellWidth;
+				setContentSize(_width || cellWidth * _repeatX, _height || cellHeight * _repeatY);
+				
 				//创建新单元格				
 				var numX:int = _isVerticalLayout ? _repeatX : _repeatY;
 				var numY:int = (_isVerticalLayout ? _repeatY : _repeatX) + (_scrollBar ? 1 : 0);
@@ -148,15 +168,15 @@ package morn.core.components {
 						cell = _itemRender is XML ? View.createComp(_itemRender) as Box : new _itemRender();
 						cell.x = (_isVerticalLayout ? l : k) * (_spaceX + cell.width);
 						cell.y = (_isVerticalLayout ? k : l) * (_spaceY + cell.height);
+						cell.name = "item" + (k * numX + l);
 						_content.addChild(cell);
 						addCell(cell);
 					}
 				}
-				if (_scrollBar) {
-					var cellWidth:Number = cell.width + spaceX;
-					var cellHeight:Number = cell.height + spaceY;
-					_cellSize = _isVerticalLayout ? cellHeight : cellWidth;
-					setContentSize(cellWidth * _repeatX, cellHeight * _repeatY);
+				
+				if (_array) {
+					array = _array;
+					exeCallLater(renderItems);
 				}
 			}
 		}
@@ -183,22 +203,34 @@ package morn.core.components {
 			}
 		}
 		
+		override public function set width(value:Number):void {
+			super.width = value;
+			callLater(changeCells);
+		}
+		
+		override public function set height(value:Number):void {
+			super.height = value;
+			callLater(changeCells);
+		}
+		
 		/**设置可视区域大小*/
 		public function setContentSize(width:Number, height:Number):void {
-			var g:Graphics = _content.graphics;
+			var g:Graphics = graphics;
 			g.clear();
-			g.beginFill(0xffff00, 0);
+			g.beginFill(0xff0000, 0);
 			g.drawRect(0, 0, width, height);
 			g.endFill();
 			_content.width = width;
 			_content.height = height;
-			_content.scrollRect = new Rectangle(0, 0, width, height);
+			if (_scrollBar) {
+				_content.scrollRect = new Rectangle(0, 0, width, height);
+			}
 		}
 		
 		protected function onCellMouse(e:MouseEvent):void {
+			var cell:Box = e.currentTarget as Box;
+			var index:int = _startIndex + _cells.indexOf(cell);
 			if (e.type == MouseEvent.CLICK || e.type == MouseEvent.ROLL_OVER || e.type == MouseEvent.ROLL_OUT) {
-				var cell:Box = e.currentTarget as Box;
-				var index:int = _startIndex + _cells.indexOf(cell);
 				if (e.type == MouseEvent.CLICK) {
 					if (_selectEnable) {
 						selectedIndex = index;
@@ -223,6 +255,7 @@ package morn.core.components {
 		}
 		
 		protected function onScrollBarChange(e:Event):void {
+			exeCallLater(changeCells);
 			var rect:Rectangle = _content.scrollRect;
 			var scrollValue:Number = _scrollBar.value;
 			var index:int = int(scrollValue / _cellSize) * (_isVerticalLayout ? _repeatX : _repeatY);
@@ -255,10 +288,12 @@ package morn.core.components {
 			if (_selectedIndex != value) {
 				_selectedIndex = value;
 				changeSelectStatus();
+				sendEvent(Event.CHANGE);
+				//兼容老版本
+				sendEvent(Event.SELECT);
 				if (_selectHandler != null) {
 					_selectHandler.executeWith([value]);
 				}
-				sendEvent(Event.SELECT);
 			}
 		}
 		
@@ -304,7 +339,7 @@ package morn.core.components {
 			_renderHandler = value;
 		}
 		
-		/**单元格鼠标事件处理器(默认返回参数type:String,index:int)*/
+		/**单元格鼠标事件处理器(默认返回参数e:MouseEvent,index:int)*/
 		public function get mouseHandler():Handler {
 			return _mouseHandler;
 		}
@@ -336,11 +371,12 @@ package morn.core.components {
 				cell.dataSource = _array[index];
 			} else {
 				cell.visible = false;
+				cell.dataSource = null;
 			}
+			sendEvent(UIEvent.ITEM_RENDER, [cell, index]);
 			if (_renderHandler != null) {
 				_renderHandler.executeWith([cell, index]);
 			}
-			sendEvent(UIEvent.ITEM_RENDER, [cell, index]);
 		}
 		
 		/**列表数据源*/
@@ -360,13 +396,14 @@ package morn.core.components {
 			//重设滚动条
 			if (_scrollBar) {
 				//自动隐藏滚动条
-				var lineNum:int = _isVerticalLayout ? _repeatY : _repeatX;
-				var lineCount:int = Math.ceil(length / (_isVerticalLayout ? _repeatX : _repeatY));
+				var numX:int = _isVerticalLayout ? _repeatX : _repeatY;
+				var numY:int = _isVerticalLayout ? _repeatY : _repeatX;
+				var lineCount:int = Math.ceil(length / numX);
 				_scrollBar.visible = _totalPage > 1;
 				if (_scrollBar.visible) {
 					_scrollBar.scrollSize = _cellSize;
-					_scrollBar.thumbPercent = lineNum / lineCount;
-					_scrollBar.setScroll(0, (lineCount - lineNum) * _cellSize, _startIndex * _cellSize);
+					_scrollBar.thumbPercent = numY / lineCount;
+					_scrollBar.setScroll(0, (lineCount - numY) * _cellSize, _startIndex / numX * _cellSize);
 				} else {
 					_scrollBar.setScroll(0, 0, 0);
 				}
@@ -400,7 +437,9 @@ package morn.core.components {
 		
 		override public function set dataSource(value:Object):void {
 			_dataSource = value;
-			if (value is Array) {
+			if (value is int || value is String) {
+				selectedIndex = int(value);
+			} else if (value is Array) {
 				array = value as Array
 			} else {
 				super.dataSource = value;
@@ -411,6 +450,36 @@ package morn.core.components {
 		public function get cells():Vector.<Box> {
 			exeCallLater(changeCells);
 			return _cells;
+		}
+		
+		/**滚动条皮肤*/
+		public function get vScrollBarSkin():String {
+			return _scrollBar.skin;
+		}
+		
+		public function set vScrollBarSkin(value:String):void {
+			removeChildByName("scrollBar");
+			var scrollBar:ScrollBar = new VScrollBar();
+			scrollBar.name = "scrollBar";
+			scrollBar.right = 0;
+			scrollBar.skin = value;
+			addChild(scrollBar);
+			callLater(changeCells);
+		}
+		
+		/**滚动条皮肤*/
+		public function get hScrollBarSkin():String {
+			return _scrollBar.skin;
+		}
+		
+		public function set hScrollBarSkin(value:String):void {
+			removeChildByName("scrollBar");
+			var scrollBar:ScrollBar = new HScrollBar();
+			scrollBar.name = "scrollBar";
+			scrollBar.bottom = 0;
+			scrollBar.skin = value;
+			addChild(scrollBar);
+			callLater(changeCells);
 		}
 		
 		override public function commitMeasure():void {
@@ -472,8 +541,20 @@ package morn.core.components {
 		public function scrollTo(index:int):void {
 			startIndex = index;
 			if (_scrollBar) {
-				_scrollBar.value = index * _cellSize;
+				var numX:int = _isVerticalLayout ? _repeatX : _repeatY;
+				_scrollBar.value = (index / numX) * _cellSize;
 			}
+		}
+		
+		/**获取list内拖动结束位置的索引*/
+		public function getDropIndex(e:DragEvent):int {
+			var target:DisplayObject = e.data.dropTarget;
+			for (var i:int = 0, n:int = _cells.length; i < n; i++) {
+				if (_cells[i].contains(target)) {
+					return _startIndex + i;
+				}
+			}
+			return -1;
 		}
 	}
 }

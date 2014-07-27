@@ -7,6 +7,8 @@ package {
 	import flash.display.Stage;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.system.Security;
+	
 	import morn.core.components.View;
 	import morn.core.handlers.Handler;
 	import morn.core.managers.AssetManager;
@@ -45,6 +47,12 @@ package {
 		/**多线程加载管理器*/
 		public static var mloader:MassLoaderManager = new MassLoaderManager();
 		
+		public static var loaderLayer:Sprite = new Sprite();
+		
+		public static var uiLayer:Sprite = new Sprite();
+		
+		public static var animateLayer:Sprite = new Sprite();
+
 		public static function init(main:Sprite):void {
 			stage = main.stage;
 			stage.frameRate = Config.GAME_FPS;
@@ -52,7 +60,8 @@ package {
 			stage.align = StageAlign.TOP_LEFT;
 			stage.stageFocusRect = false;
 			stage.tabChildren = false;
-			
+			Security.allowDomain("*");
+
 			//覆盖配置
 			var gameVars:Object = stage.loaderInfo.parameters;
 			if (gameVars != null) {
@@ -63,8 +72,14 @@ package {
 				}
 			}
 			
-			stage.addChild(dialog);
+//			stage.addChild(dialog);
+			
+			stage.addChild(uiLayer);
+			stage.addChild(animateLayer);
 			stage.addChild(tip);
+			//
+			stage.addChild(loaderLayer);
+			//
 			stage.addChild(log);
 			
 			//如果UI视图是加载模式，则进行整体加载

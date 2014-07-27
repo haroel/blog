@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <root>
-    <info url="http://haroel.github.io/blog/Main.html" version="v1.0.1"/>
+    <info url="http://haroel.github.io/blog/fl/Main.html" version="v1.0.1"/>
+    <rightmenu>
+    	<item label="Design by howe" separatorBefore="true" enabled = "false"/>
+    	<item label="Copyright©2014 howe" separatorBefore="true" enabled = "false"/>
+    </rightmenu>
     <menus>
         <item icon="BProfile" id="1" label="个人简介" style = "1" color = "0x5f3bb9"/>
         <item icon="BEdu" id="2" label="教育经历" style = "1" color = "0xbe1e50"/>

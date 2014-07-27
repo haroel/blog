@@ -1,23 +1,20 @@
 /**
- * Morn UI Version 2.4.1020 http://www.mornui.com/
+ * Morn UI Version 3.0 http://www.mornui.com/
  * Feedback yungzhu@gmail.com http://weibo.com/newyung
  */
 package morn.core.components {
+	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import morn.core.handlers.Handler;
 	
-	/**选择项改变后触发*/
-	[Event(name="select",type="flash.events.Event")]
+	/**selectedIndex属性变化时调度*/
+	[Event(name="change",type="flash.events.Event")]
 	
-	/**Tab标签*/
-	public class Tab extends Box implements IItem {
-		/**横向的*/
-		public static const HORIZENTAL:String = "horizontal";
-		/**纵向的*/
-		public static const VERTICAL:String = "vertical";
+	/**集合，Tab和RadioGroup的基类*/
+	public class Group extends Box implements IItem {
 		protected var _items:Vector.<ISelect>;
 		protected var _selectHandler:Handler;
-		protected var _selectedIndex:int;
+		protected var _selectedIndex:int = -1;
 		protected var _skin:String;
 		protected var _labels:String;
 		protected var _labelColors:String;
@@ -25,33 +22,57 @@ package morn.core.components {
 		protected var _labelSize:Object;
 		protected var _labelBold:Object;
 		protected var _labelMargin:String;
-		protected var _direction:String = HORIZENTAL;
+		protected var _direction:String;
+		protected var _space:Number = 0;
 		
-		public function Tab(labels:String = null, skin:String = null) {
+		public function Group(labels:String = null, skin:String = null) {
 			this.skin = skin;
 			this.labels = labels;
 		}
 		
-		/**批量设置Radio*/
-		public function setItems(buttons:Array):void {
-			removeAllChild();
-			var index:int = 0;
-			for (var i:int = 0, n:int = buttons.length; i < n; i++) {
-				var item:Button = buttons[i];
-				if (item) {
-					item.name = "item" + index;
-					addChild(item);
-					index++;
+		/**增加项，返回索引id
+		 * @param autoLayOut 是否自动布局，如果为true，会根据direction和space属性计算item的位置*/
+		public function addItem(item:ISelect, autoLayOut:Boolean = true):int {
+			var display:DisplayObject = item as DisplayObject;
+			var index:int = _items.length;
+			display.name = "item" + index;
+			addChild(display);
+			initItems();
+			
+			if (autoLayOut && index > 0) {
+				var preItem:DisplayObject = _items[index - 1] as DisplayObject;
+				if (_direction == "horizontal") {
+					display.x = preItem.x + preItem.width + _space;
+				} else {
+					display.y = preItem.y + preItem.height + _space;
 				}
 			}
-			initItems();
+			return index;
 		}
 		
-		/**增加Radio*/
-		public function addItem(button:Button):void {
-			button.name = "item" + _items.length;
-			addChild(button);
-			initItems();
+		/**删除项
+		 * @param autoLayOut 是否自动布局，如果为true，会根据direction和space属性计算item的位置*/
+		public function delItem(item:ISelect, autoLayOut:Boolean = true):void {
+			var index:int = _items.indexOf(item);
+			if (index != -1) {
+				var display:DisplayObject = item as DisplayObject;
+				removeChild(display);
+				for (var i:int = index + 1, n:int = _items.length; i < n; i++) {
+					var child:DisplayObject = _items[i] as DisplayObject;
+					child.name = "item" + (i - 1);
+					if (autoLayOut) {
+						if (_direction == "horizontal") {
+							child.x -= display.width + _space;
+						} else {
+							child.y -= display.height + _space;
+						}
+					}
+				}
+				initItems();
+				if (_selectedIndex > -1) {
+					selectedIndex = _selectedIndex < _items.length ? _selectedIndex : (_selectedIndex - 1);
+				}
+			}
 		}
 		
 		/**初始化*/
@@ -72,7 +93,7 @@ package morn.core.components {
 			selectedIndex = index;
 		}
 		
-		/**所选按钮的索引*/
+		/**所选按钮的索引，默认为-1*/
 		public function get selectedIndex():int {
 			return _selectedIndex;
 		}
@@ -82,6 +103,8 @@ package morn.core.components {
 				setSelect(_selectedIndex, false);
 				_selectedIndex = value;
 				setSelect(_selectedIndex, true);
+				sendEvent(Event.CHANGE);
+				//兼容老版本
 				sendEvent(Event.SELECT);
 				if (_selectHandler != null) {
 					_selectHandler.executeWith([_selectedIndex]);
@@ -104,7 +127,7 @@ package morn.core.components {
 			_selectHandler = value;
 		}
 		
-		/**Button皮肤*/
+		/**皮肤*/
 		public function get skin():String {
 			return _skin;
 		}
@@ -129,17 +152,17 @@ package morn.core.components {
 				if (Boolean(_labels)) {
 					var a:Array = _labels.split(",");
 					for (var i:int = 0, n:int = a.length; i < n; i++) {
-						var btn:Button = createButton(_skin, a[i]);
-						btn.name = "item" + i;
-						addChild(btn);
+						var item:DisplayObject = createItem(_skin, a[i]);
+						item.name = "item" + i;
+						addChild(item);
 					}
 				}
 				initItems();
 			}
 		}
 		
-		protected function createButton(skin:String, label:String):Button {
-			return new Button(skin, label);
+		protected function createItem(skin:String, label:String):DisplayObject {
+			return null;
 		}
 		
 		/**按钮标签颜色(格式:upColor,overColor,downColor,disableColor)*/
@@ -202,32 +225,27 @@ package morn.core.components {
 			}
 		}
 		
+		/**布局方向*/
+		public function get direction():String {
+			return _direction;
+		}
+		
+		public function set direction(value:String):void {
+			_direction = value;
+			callLater(changeLabels);
+		}
+		
+		/**间隔*/
+		public function get space():Number {
+			return _space;
+		}
+		
+		public function set space(value:Number):void {
+			_space = value;
+			callLater(changeLabels);
+		}
+		
 		protected function changeLabels():void {
-			var left:Number = 0
-			for (var i:int = 0, n:int = _items.length; i < n; i++) {
-				var btn:Button = _items[i] as Button;
-				if (_skin)
-					btn.skin = _skin;
-				if (_labelColors)
-					btn.labelColors = _labelColors;
-				if (_labelStroke)
-					btn.labelStroke = _labelStroke;
-				if (_labelSize)
-					btn.labelSize = _labelSize;
-				if (_labelBold)
-					btn.labelBold = _labelBold;
-				if (_labelMargin)
-					btn.labelMargin = _labelMargin;
-				if (_direction == HORIZENTAL) {
-					btn.y = 0;
-					btn.x = left;
-					left += btn.width;
-				} else {
-					btn.x = 0;
-					btn.y = left;
-					left += btn.height;
-				}
-			}
 		}
 		
 		override public function commitMeasure():void {
@@ -255,22 +273,8 @@ package morn.core.components {
 			} else if (value is Array) {
 				labels = (value as Array).join(",");
 			} else {
-				for (var prop:String in _dataSource) {
-					if (hasOwnProperty(prop)) {
-						this[prop] = _dataSource[prop];
-					}
-				}
+				super.dataSource = value;
 			}
-		}
-		
-		/**布局方向*/
-		public function get direction():String {
-			return _direction;
-		}
-		
-		public function set direction(value:String):void {
-			_direction = value;
-			callLater(changeLabels);
 		}
 	}
 }

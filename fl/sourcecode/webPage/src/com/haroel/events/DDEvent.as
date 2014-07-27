@@ -7,7 +7,13 @@ package com.haroel.events
 		private var _param:Object;
 		
 		public static const METRO_ITEM_CLICK:String = "METRO_ITEM_CLICK";
+		public static const METRO_ITEM_REMOVE:String = "METRO_ITEM_REMOVE";
+
+		public static const DOCK_ITEM_CLICK:String = "DOCK_ITEM_CLICK";
+
 		
+		public static const POPUPVIEW_REMOVE:String = "popup_view_remove";
+
 		public static const MAIN_LOADER_REMOVE:String = "MAIN_LOADER_REMOVE";
 
 		public static const RESMANAGER_START:String = "RESMANAGER_START";

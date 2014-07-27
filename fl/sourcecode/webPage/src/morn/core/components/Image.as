@@ -1,5 +1,5 @@
 /**
- * Morn UI Version 2.5.1215 http://www.mornui.com/
+ * Morn UI Version 3.0 http://www.mornui.com/
  * Feedback yungzhu@gmail.com http://weibo.com/newyung
  */
 package morn.core.components {
@@ -24,7 +24,8 @@ package morn.core.components {
 			addChild(_bitmap = new AutoBitmap());
 		}
 		
-		/**图片地址*/
+		/**图片地址，如果值为已加载资源，会马上显示，否则会先加载后显示，加载后图片会自动进行缓存
+		 * 举例：url="png.comp.bg" 或者 url="assets/img/face.png"*/
 		public function get url():String {
 			return _url;
 		}
@@ -42,6 +43,15 @@ package morn.core.components {
 					bitmapData = null;
 				}
 			}
+		}
+		
+		/**图片地址，等同于url*/
+		public function get skin():String {
+			return _url;
+		}
+		
+		public function set skin(value:String):void {
+			url = value;
 		}
 		
 		/**源位图数据*/
@@ -74,7 +84,7 @@ package morn.core.components {
 			_bitmap.height = height;
 		}
 		
-		/**九宫格信息(格式:左边距,上边距,右边距,下边距)*/
+		/**九宫格信息，格式：左边距,上边距,右边距,下边距,是否重复填充(值为0或1)，例如：4,4,4,4,1*/
 		public function get sizeGrid():String {
 			if (_bitmap.sizeGrid) {
 				return _bitmap.sizeGrid.join(",");
@@ -100,6 +110,24 @@ package morn.core.components {
 			_bitmap.smoothing = value;
 		}
 		
+		/**X锚点，值为0-1*/
+		public function get anchorX():Number {
+			return _bitmap.anchorX;
+		}
+		
+		public function set anchorX(value:Number):void {
+			_bitmap.anchorX = value;
+		}
+		
+		/**Y锚点，值为0-1*/
+		public function get anchorY():Number {
+			return _bitmap.anchorY;
+		}
+		
+		public function set anchorY(value:Number):void {
+			_bitmap.anchorY = value;
+		}
+		
 		override public function set dataSource(value:Object):void {
 			_dataSource = value;
 			if (value is String) {
@@ -109,7 +137,7 @@ package morn.core.components {
 			}
 		}
 		
-		/**销毁资源
+		/**销毁资源，从位图缓存中销毁掉
 		 * @param	clearFromLoader 是否同时删除加载缓存*/
 		public function dispose(clearFromLoader:Boolean = false):void {
 			_bitmap.bitmapData = null;

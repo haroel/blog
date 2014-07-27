@@ -2,15 +2,13 @@ package com.haroel.model
 {
 	import com.haroel.util.Hash;
 	
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.HTTPStatusEvent;
-	import flash.events.IOErrorEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
-
-	public class ModelLocator  extends EventDispatcher
+	public class ModelLocator 
 	{
+		private static var _instance:ModelLocator = null;
+		
+		private var _menuHash:Hash = null;
+		private var rightMenuLabels:Array = [];
+		
 		public static var URL:String = "";
 		public static var VERSION:String = "";
 		
@@ -21,10 +19,9 @@ package com.haroel.model
 				throw new Error("Singleton Class");
 			}
 		}
-		private static var _instance:ModelLocator;
+
 		public static function getInstance():ModelLocator
 		{
-			
 			if(_instance == null)
 			{
 				_instance = new ModelLocator(new InnerCls());
@@ -33,7 +30,11 @@ package com.haroel.model
 			return _instance;
 		}
 
-		private var _menuHash:Hash = new Hash();
+		public function getRightMenuLabels():Array
+		{
+			return rightMenuLabels;
+		}
+		
 		public function getMenuItemInfos():Array
 		{
 			return _menuHash.getItems;
@@ -46,21 +47,12 @@ package com.haroel.model
 		
 		private function init():void
 		{
-			var loader:URLLoader =new URLLoader();
-			loader.addEventListener(Event.COMPLETE,completeHandler);
-			loader.addEventListener(IOErrorEvent.IO_ERROR,ioErrorHandler);
-			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS,httpHandler);
-			loader.load(new URLRequest("gameSetting.xml"));
-		}	
-		private function completeHandler(e:Event):void
+			_menuHash = new Hash()
+		}
+		
+		public function parseXML(content:*):void
 		{
-			var loader:URLLoader=e.target as URLLoader;
-			loader.removeEventListener(Event.COMPLETE,completeHandler);
-			loader.removeEventListener(IOErrorEvent.IO_ERROR,ioErrorHandler);
-			loader.removeEventListener(HTTPStatusEvent.HTTP_STATUS,httpHandler);
-
-			var configXML:XML=new XML(loader.data);
-			
+			var configXML:XML=new XML(content);
 			ModelLocator.URL = configXML.info.@url;
 			ModelLocator.VERSION = configXML.info.@version;
 			for each (var xml:XML in configXML.menus.item)
@@ -73,19 +65,14 @@ package com.haroel.model
 				itemVO.color = xml.@color;
 				_menuHash.addItem(itemVO.id,itemVO);
 			}
-			
-			loader = null;
-			
-			dispatchEvent(new Event(Event.COMPLETE));
-		}
-		private function ioErrorHandler(evt:IOErrorEvent):void
-		{
-			trace("error");
-		}
-		private function httpHandler(evt:HTTPStatusEvent):void
-		{
-			trace("state");
-
+			for each (var xml:XML in configXML.rightmenu.item)
+			{
+				var obj:Object = new Object();
+				obj.label = xml.@label;
+				obj.separatorBefore = (Boolean)(xml.@separatorBefore);
+				obj.enabled = (Boolean)(xml.@enabled);
+				rightMenuLabels.push(obj);
+			}
 		}
 	}
 }

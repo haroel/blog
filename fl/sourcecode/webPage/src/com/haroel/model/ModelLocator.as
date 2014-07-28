@@ -65,12 +65,12 @@ package com.haroel.model
 				itemVO.color = xml.@color;
 				_menuHash.addItem(itemVO.id,itemVO);
 			}
-			for each (var xml:XML in configXML.rightmenu.item)
+			for each (var xml2:XML in configXML.rightmenu.item)
 			{
 				var obj:Object = new Object();
-				obj.label = xml.@label;
-				obj.separatorBefore = (Boolean)(xml.@separatorBefore);
-				obj.enabled = (Boolean)(xml.@enabled);
+				obj.label = xml2.@label;
+				obj.separatorBefore = (Boolean)(xml2.@separatorBefore);
+				obj.enabled = (Boolean)(xml2.@enabled);
 				rightMenuLabels.push(obj);
 			}
 		}

@@ -6,8 +6,8 @@ package game.ui.test {
 		public var m_collBtn:LinkButton;
 		protected static var uiXML:XML =
 			<View width="800" height="480">
-			  <Image x="595" y="67" width="150" height="188" var="m_avatar"/>
-			  <Label text="何浩" x="136" y="77" size="16" selectable="true" width="83" height="25"/>
+			  <Image x="595" y="67" width="150" height="188" var="m_avatar" smoothing="true" url="img/avtar.png"/>
+			  <Label text="何浩" x="135" y="75" size="16" selectable="true" width="65" height="24" buttonMode="false" underline="false"/>
 			  <Label text="星座：天蝎座" x="71" y="345" width="123" height="19" align="left"/>
 			  <Label text="故   乡：武汉市江夏区" x="322" y="343" width="247" height="23"/>
 			  <Label text="所在地：上海市浦东新区" x="321" y="379" width="199" height="19"/>
@@ -22,11 +22,11 @@ package game.ui.test {
 			  <Label text="湖北省武汉市" x="138" y="121" size="16" selectable="true"/>
 			  <Label text="科学社会主义" x="428" y="121" size="16" selectable="true" width="116" height="24" isHtml="false" disabled="true"/>
 			  <Label text="汉族" x="136" y="166" size="16" selectable="true" width="66" height="20"/>
-			  <LinkButton label="武汉科技大学" x="429" y="74" labelSize="16" labelBold="false" var="m_collBtn"/>
+			  <LinkButton label="武汉科技大学" x="429" y="74" labelSize="16" labelBold="false" var="m_collBtn" buttonMode="true"/>
 			  <Image skin="png.comp.img_line" x="61" y="306" width="687" height="1" smoothing="true"/>
 			  <Label text="1987年11月" x="135" y="212" size="16" selectable="true"/>
 			  <Label text="职业" x="64" y="259" bold="true" color="0x333333" width="56" height="19"/>
-			  <Label text="固定工作者" x="141" y="259" size="16" selectable="true"/>
+			  <Label text="固定工作者" x="140" y="258" size="16" selectable="true"/>
 			  <Label text="学位" x="345" y="211" bold="true" color="0x333333" width="56" height="19"/>
 			  <Label text="学士" x="433" y="210" size="16" selectable="true"/>
 			  <Label text="信仰" x="345" y="122" bold="true" color="0x333333" width="56" height="21"/>

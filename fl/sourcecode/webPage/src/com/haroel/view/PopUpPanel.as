@@ -7,6 +7,7 @@ package com.haroel.view
 	import com.haroel.events.DDEvent;
 	import com.haroel.events.UIEventDispatcher;
 	import com.haroel.model.MenuItemVO;
+	import com.haroel.ui.MProfileView;
 	
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
@@ -43,6 +44,8 @@ package com.haroel.view
 				UIEventDispatcher.getInstance().dispatchEvent(new DDEvent(DDEvent.POPUPVIEW_REMOVE,null));
 			}
 //			(SimpleButton)(_material.m_closeBtn).addEventListener(MouseEvent.CLICK,closePanel);
+			
+			_material.addChild(new MProfileView());
 		}
 		
 		public function playMoveInAction():void

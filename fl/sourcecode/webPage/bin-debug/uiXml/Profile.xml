@@ -1,0 +1,26 @@
+<View width="800" height="480" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Image x="595" y="67" layer="1" width="150" height="188" var="m_avatar"/>
+  <Label text="何浩" styleSkin="png.comp.label" x="136" y="77" layer="1" size="16" selectable="true" width="83" height="25"/>
+  <Label text="星座：天蝎座" styleSkin="png.comp.label" x="71" y="345" layer="1" width="123" height="19" align="left"/>
+  <Label text="故   乡：武汉市江夏区" styleSkin="png.comp.label" x="322" y="343" layer="1" width="247" height="23"/>
+  <Label text="所在地：上海市浦东新区" styleSkin="png.comp.label" x="321" y="379" layer="1" width="199" height="19"/>
+  <Label text="已婚有一女" styleSkin="png.comp.label" x="72" y="378" layer="1" width="150" height="19"/>
+  <Label text="出生地" styleSkin="png.comp.label" x="345" y="166" layer="1" bold="true" color="0x333333" width="68" height="21"/>
+  <Label text="出生日期" styleSkin="png.comp.label" x="62" y="213" layer="1" bold="true" color="0x333333" width="66" height="19"/>
+  <Label text="中文名" styleSkin="png.comp.label" x="66" y="77" layer="1" bold="true" color="0x333333" width="52" height="24"/>
+  <Label text="毕业院校" styleSkin="png.comp.label" x="345" y="78" layer="1" bold="true" color="0x333333" width="72" height="19"/>
+  <Label text="民族" styleSkin="png.comp.label" x="63" y="169" layer="1" bold="true" color="0x333333" width="55" height="19"/>
+  <Label text="籍贯" styleSkin="png.comp.label" x="65" y="120" layer="1" bold="true" color="0x333333" width="50" height="19"/>
+  <Label text="湖北省武汉市江夏区" styleSkin="png.comp.label" x="430" y="166" layer="1" size="16" selectable="true"/>
+  <Label text="湖北省武汉市" styleSkin="png.comp.label" x="138" y="121" layer="1" size="16" selectable="true"/>
+  <Label text="科学社会主义" styleSkin="png.comp.label" x="428" y="121" layer="1" size="16" selectable="true" width="116" height="24" isHtml="false" disabled="true"/>
+  <Label text="汉族" styleSkin="png.comp.label" x="136" y="166" layer="1" size="16" selectable="true" width="66" height="20"/>
+  <LinkButton label="武汉科技大学" styleSkin="png.comp.linkbutton" x="429" y="74" layer="1" labelSize="16" labelBold="false" var="m_collBtn"/>
+  <Image skin="png.comp.img_line" x="61" y="306" layer="1" width="687" height="1" smoothing="true"/>
+  <Label text="1987年11月" styleSkin="png.comp.label" x="135" y="212" layer="1" size="16" selectable="true"/>
+  <Label text="职业" styleSkin="png.comp.label" x="64" y="259" layer="1" bold="true" color="0x333333" width="56" height="19"/>
+  <Label text="固定工作者" styleSkin="png.comp.label" x="141" y="259" layer="1" size="16" selectable="true"/>
+  <Label text="学位" styleSkin="png.comp.label" x="345" y="211" layer="1" bold="true" color="0x333333" width="56" height="19"/>
+  <Label text="学士" styleSkin="png.comp.label" x="433" y="210" layer="1" size="16" selectable="true"/>
+  <Label text="信仰" styleSkin="png.comp.label" x="345" y="122" layer="1" bold="true" color="0x333333" width="56" height="21"/>
+</View>

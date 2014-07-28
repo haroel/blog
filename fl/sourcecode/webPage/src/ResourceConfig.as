@@ -14,6 +14,8 @@ package
 			public static const CLS_DOCK_BG_MC:String = "DockBGMC";
 			
 		//
+		public static const FILE_COMP:String = "assets/comp.swf";
+
 	}
 
 }	

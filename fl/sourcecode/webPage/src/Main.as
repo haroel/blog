@@ -49,7 +49,8 @@ package
 			
 			//加载资源配置文件
 			var resArray:Array = [{url:ResourceConfig.FILE_GAME_SETTING,type:ResLoader.TXT,size:1},
-								ResourceConfig.FILE_WEB_PAGE];
+								ResourceConfig.FILE_WEB_PAGE,
+								ResourceConfig.FILE_COMP];
 			App.loader.loadAssets(resArray,
 				new Handler(loadComplete), 
 				new Handler(loadProgress),

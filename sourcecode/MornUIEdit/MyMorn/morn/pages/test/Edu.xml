@@ -1,0 +1,5 @@
+<View width="800" height="480" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Label text="2006年7月毕业于湖北省武汉市江夏区实验高中" styleSkin="png.comp.label" x="47" y="44" layer="1" width="346" height="21"/>
+  <Label text="2007年7月毕业于湖北省武汉市江夏区培训中心" styleSkin="png.comp.label" x="46" y="86" layer="1" width="352" height="21"/>
+  <Label text="2011年6月毕业于湖北省武汉市武汉科技大学 信息管理与信息系统专业" styleSkin="png.comp.label" x="47" y="134" layer="1" width="620" height="21"/>
+</View>

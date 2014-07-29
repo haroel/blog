@@ -37,6 +37,7 @@ package
 		}
 		private function initApp():void
 		{
+			App.log.toggle();
 			trace("flash player version: " + flash.system.Capabilities.version);
 			trace("system os version: " + flash.system.Capabilities.os);
 			
@@ -57,7 +58,8 @@ package
 				new Handler(loadError));
 			function loadError(value:String):void
 			{
-				trace(value);	
+				App.log.debug(value);
+//				trace(value);	
 			}
 		}
 
@@ -69,7 +71,8 @@ package
 		
 		private function loadComplete():void
 		{
-			trace("主资源加载完成！");
+			App.log.debug("主资源加载完成");
+
 			_mainResLoader.removeLoader(new Handler(mainLoaderRemoveFunc));
 			function mainLoaderRemoveFunc():void
 			{

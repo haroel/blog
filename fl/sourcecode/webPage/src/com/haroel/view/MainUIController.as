@@ -65,7 +65,7 @@ package com.haroel.view
 				_animaterLayer = _material.m_animateLayer as MovieClip;
 				
 				_popUpController = new PopUpViewController(_material.m_popUpLayer as MovieClip);
-							
+				App.log.debug("主界面初始化完成");			
 				createMetroItems();
 			}
 		}
@@ -136,7 +136,7 @@ package com.haroel.view
 		}
 		public function createDockItems(id:int):void
 		{
-			trace("创建dock");
+			App.log.debug("创建dock");
 			_dockItemHash.removeAllItems();
 			
 			var duration:Number = 1.0;
@@ -206,7 +206,9 @@ package com.haroel.view
 			var startPoint:Point = new Point();
 			startPoint.x = (Main.stageWidth - (210 *2 + gap * 3 + 100 *2)) /2;
 			startPoint.y = (Main.stageHeight - 210) /2;
-			trace("创建" + arr.length + "个 metroitem")
+			
+			App.log.debug("创建" + arr.length + "个 metroitem");
+			
 			for (var i:int = 0;i < arr.length;i++)
 			{
 				var info:MenuItemVO = arr[i];

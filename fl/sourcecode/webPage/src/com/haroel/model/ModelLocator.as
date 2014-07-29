@@ -73,6 +73,8 @@ package com.haroel.model
 				obj.enabled = (Boolean)(xml2.@enabled);
 				rightMenuLabels.push(obj);
 			}
+			App.log.debug("gamesetting解析完成");
+
 		}
 	}
 }

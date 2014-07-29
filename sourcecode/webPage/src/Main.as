@@ -37,7 +37,6 @@ package
 		}
 		private function initApp():void
 		{
-			App.log.toggle();
 			trace("flash player version: " + flash.system.Capabilities.version);
 			trace("system os version: " + flash.system.Capabilities.os);
 			
@@ -85,7 +84,10 @@ package
 		{
 			//读取配置
 			ModelLocator.getInstance().parseXML(App.loader.getResLoaded(ResourceConfig.FILE_GAME_SETTING));
-			
+			if (ModelLocator.DEBUG_MODE)
+			{
+				App.log.toggle();
+			}
 		}
 		
 		private function initMainUI():void

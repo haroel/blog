@@ -11,6 +11,7 @@ package com.haroel.model
 		
 		public static var URL:String = "";
 		public static var VERSION:String = "";
+		public static var DEBUG_MODE:Boolean = false;
 		
 		public function ModelLocator(innerCls:InnerCls)
 		{
@@ -55,6 +56,8 @@ package com.haroel.model
 			var configXML:XML=new XML(content);
 			ModelLocator.URL = configXML.info.@url;
 			ModelLocator.VERSION = configXML.info.@version;
+			ModelLocator.DEBUG_MODE = (Boolean)(configXML.info.@debug);
+			
 			for each (var xml:XML in configXML.menus.item)
 			{
 				var itemVO:MenuItemVO = new MenuItemVO();

@@ -45,16 +45,20 @@ package com.haroel.view
 			}
 //			(SimpleButton)(_material.m_closeBtn).addEventListener(MouseEvent.CLICK,closePanel);
 			
+		}
+		private function moveInCompleteHandler():void
+		{
 			_material.addChild(new MProfileView());
 		}
 		
 		public function playMoveInAction():void
 		{
-			TweenLite.to(_material, 0.5, {y:0, motionBlur:true, ease:Cubic.easeInOut});
+			TweenLite.to(_material, 0.5, {y:0, motionBlur:true, ease:Cubic.easeInOut,onComplete:moveInCompleteHandler});
 		}
 		
 		public function playMoveOutAction():void
 		{			
+			
 			TweenLite.to(_material,0.5,{y:-_material.height,onComplete:removeNode});
 			function removeNode():void
 			{

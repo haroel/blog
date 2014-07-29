@@ -56,7 +56,8 @@ package com.haroel.model
 			var configXML:XML=new XML(content);
 			ModelLocator.URL = configXML.info.@url;
 			ModelLocator.VERSION = configXML.info.@version;
-			ModelLocator.DEBUG_MODE = (Boolean)(configXML.info.@debug);
+			
+			ModelLocator.DEBUG_MODE = configXML.info.@debug == "true";
 			
 			for each (var xml:XML in configXML.menus.item)
 			{
@@ -72,8 +73,8 @@ package com.haroel.model
 			{
 				var obj:Object = new Object();
 				obj.label = xml2.@label;
-				obj.separatorBefore = (Boolean)(xml2.@separatorBefore);
-				obj.enabled = (Boolean)(xml2.@enabled);
+				obj.separatorBefore = (Boolean)(xml2.@separatorBefore== "true");
+				obj.enabled = (Boolean)(xml2.@enabled == "true");
 				rightMenuLabels.push(obj);
 			}
 			App.log.debug("gamesetting解析完成");

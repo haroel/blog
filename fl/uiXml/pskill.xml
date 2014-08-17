@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<groups id = "1" des = "开发、办公工具">
+	<item label = "Xcode" value = "80"/>
+	<item label = "Eclipse" value = "90"/>
+	
+	<item label = "Cocostudio" value = "80"/>
+	
+	<item label = "Flash Pro" value = "90"/>
+	<item label = "Photoshop" value = "85"/>
+	<item label = "Adobe AIR" value = "80"/>
+	
+	<item label = "Github" value = "80"/>
+	<item label = "ProcessOn" value = "70"/>
+	
+	<item label = "Mac" value = "85"/>
+	
+	<item label = "MS Office" value = "80"/>
+</groups>
+
+<groups id = "2" des = "编程语言使用">
+	<item label = "Object C" value = "80"/>
+
+	<item label = "C/C++" value = "80"/>
+	<item label = "Java" value = "85"/>
+	
+	<item label = "Lua" value = "80"/>
+	
+	<item label = "AS3.0" value = "80"/>	
+	<item label = "php" value = "70"/>
+	
+	<item label = "html" value = "80"/>
+	
+</groups>
+</root>

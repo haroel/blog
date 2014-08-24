@@ -1,26 +1,34 @@
 <View width="800" height="480" sceneColor="0xffffff" layers="1,1,0,0,第 1 层;2,1,0,0,第 2 层">
-  <Image skin="png.comp.blank" x="21" y="16" layer="2" width="760" height="230" alpha="0.15"/>
-  <Image x="600" y="38" layer="1" width="150" height="188" var="m_avatar" smoothing="true" url="img/avtar.png"/>
-  <Label text="何浩" styleSkin="png.comp.label" x="130" y="36" layer="1" size="16" selectable="true" width="65" height="24" buttonMode="false" underline="false" toolTip="英文昵称howe"/>
+  <Image skin="png.comp.blank" x="21" y="19" layer="2" width="760" height="288" alpha="0.15"/>
+  <Image x="609" y="38" layer="1" width="150" height="188" var="m_avatar" smoothing="true" url="img/avtar.png"/>
+  <Label text="何浩" styleSkin="png.comp.label" x="129" y="36" layer="1" size="16" selectable="true" width="65" height="24" buttonMode="false" underline="false" toolTip="英文昵称howe"/>
   <Label text="所在地" styleSkin="png.comp.label" x="314" y="72" layer="1" bold="true" color="0x333333" width="68" height="23"/>
   <Label text="出生日期" styleSkin="png.comp.label" x="50" y="152" layer="1" bold="true" color="0x333333" width="66" height="19"/>
   <Label text="中文名" styleSkin="png.comp.label" x="49" y="36" layer="1" bold="true" color="0x333333" width="52" height="24"/>
   <Label text="毕业院校" styleSkin="png.comp.label" x="314" y="34" layer="1" bold="true" color="0x333333" width="72" height="19"/>
   <Label text="民族" styleSkin="png.comp.label" x="50" y="113" layer="1" bold="true" color="0x333333" width="55" height="19"/>
   <Label text="籍贯" styleSkin="png.comp.label" x="49" y="73" layer="1" bold="true" color="0x333333" width="50" height="19"/>
-  <Label text="上海市浦东新区" styleSkin="png.comp.label" x="401" y="69" layer="1" size="16" selectable="true"/>
-  <Label text="湖北省武汉市" styleSkin="png.comp.label" x="129" y="73" layer="1" size="16" selectable="true"/>
-  <Label text="汉族" styleSkin="png.comp.label" x="129" y="112" layer="1" size="16" selectable="true" width="66" height="26"/>
-  <LinkButton label="武汉科技大学" styleSkin="png.comp.linkbutton" x="401" y="33" layer="1" labelSize="16" labelBold="false" var="m_collBtn" buttonMode="true"/>
+  <Label text="上海市浦东新区" styleSkin="png.comp.label" x="404" y="71" layer="1" size="16" selectable="true"/>
+  <Label text="湖北省武汉市" styleSkin="png.comp.label" x="130" y="73" layer="1" size="16" selectable="true"/>
+  <Label text="汉族" styleSkin="png.comp.label" x="129" y="111" layer="1" size="16" selectable="true" width="66" height="26"/>
   <Label text="1987年11月" styleSkin="png.comp.label" x="127" y="152" layer="1" size="16" selectable="true"/>
   <Label text="职业" styleSkin="png.comp.label" x="51" y="194" layer="1" bold="true" color="0x333333" width="56" height="19"/>
-  <Label text="固定工作者" styleSkin="png.comp.label" x="130" y="195" layer="1" size="16" selectable="true"/>
-  <Label text="学历" styleSkin="png.comp.label" x="319" y="195" layer="1" bold="true" color="0x333333" width="56" height="19"/>
-  <Label text="本科" styleSkin="png.comp.label" x="407" y="196" layer="1" size="16" selectable="true" toolTip="信息管理于信息系统"/>
+  <Label text="固定工作者" styleSkin="png.comp.label" x="129" y="193" layer="1" size="16" selectable="true"/>
+  <Label text="学历" styleSkin="png.comp.label" x="318" y="195" layer="1" bold="true" color="0x333333" width="56" height="19"/>
+  <Label text="本科" styleSkin="png.comp.label" x="408" y="193" layer="1" size="16" selectable="true" toolTip="信息管理与信息系统"/>
   <Label text="婚姻状态" styleSkin="png.comp.label" x="316" y="154" layer="1" bold="true" color="0x333333" width="66" height="19"/>
   <Label text="已婚" styleSkin="png.comp.label" x="407" y="154" layer="1" size="16" selectable="true"/>
   <Label text="星座" styleSkin="png.comp.label" x="316" y="117" layer="1" bold="true" color="0x333333" width="66" height="19"/>
-  <Label text="天蝎座" styleSkin="png.comp.label" x="406" y="115" layer="1" size="16" selectable="true"/>
-  <Label styleSkin="png.comp.label" x="23" y="363" layer="1" width="758" height="45" var="m_desLabel" text="本网站基于Flash技术开发，动画效果采用轻量级的TweenLite缓动引擎；界面UI制作大部分使用Morn ui框架开发，感谢@yungzhu为flash开发者提供了如此强大易用的UI框架。" multiline="true" wordWrap="true" size="16"/>
-  <Label styleSkin="png.comp.label" x="24" y="277" layer="1" width="758" height="81" var="m_desLabel" text="网站使用了Windows Metro和Mac OSX混搭的设计风格，显然，两者的风格是完全不一样的，所以如何将两者结合在一起就成了设计的一大难点。经过多次的尝试和思考后，我使用了较复杂的icon动画来回切换技巧来融合两者。网站UI风格比较简洁，突出内容而轻外在装饰，去掉了关闭按钮，而为了让界面能重新返回Metro界面，又在Dock栏新增一个Home图标，整个界面非常自然。" multiline="true" wordWrap="true" size="16"/>
+  <Label text="天蝎座" styleSkin="png.comp.label" x="406" y="116" layer="1" size="16" selectable="true"/>
+  <Label text="武汉科技大学" styleSkin="png.comp.label" x="406" y="33" layer="1" size="16" selectable="true"/>
+  <Label styleSkin="png.comp.label" x="54" y="265" layer="1" bold="true" color="0x333333" width="35" height="19" text="标签"/>
+  <Label text="本站部分界面采用Morn ui框架开发，感谢@yungzhu为flash开发者提供了如此强大易用的UI框架。" styleSkin="png.comp.label" x="20" y="445" layer="1" width="757" height="27" color="0x999999"/>
+  <Label text="闷骚内敛" styleSkin="png.comp.label_tag" x="624" y="262" layer="1" autoSize="left" background="false" width="82" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="Jay迷" styleSkin="png.comp.label_tag" x="385" y="262" layer="1" autoSize="none" background="false" width="70" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="85后" styleSkin="png.comp.label_tag" x="105" y="263" layer="1" autoSize="left" background="false" width="58" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="海漂" styleSkin="png.comp.label_tag" x="318" y="262" layer="1" autoSize="left" background="false" width="58" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="IT民工" styleSkin="png.comp.label_tag" x="170" y="263" layer="1" autoSize="left" background="false" width="71" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="武汉伢" styleSkin="png.comp.label_tag" x="460" y="262" layer="1" autoSize="left" background="false" width="70" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="上班族" styleSkin="png.comp.label_tag" x="251" y="262" layer="1" autoSize="left" background="false" width="59" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
+  <Label text="轻强迫症" styleSkin="png.comp.label_tag" x="536" y="262" layer="1" autoSize="left" background="false" width="82" height="26" skin="png.comp.label_tag" align="center" sizeGrid="1,1,24,4" color="0xffffff" bold="false" size="14" font="Arial" letterSpacing="1" margin="1,3,9,1"/>
 </View>

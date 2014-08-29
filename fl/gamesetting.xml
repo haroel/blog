@@ -15,6 +15,6 @@
         
         <item icon="BPapers" id="5" label="项目经验" style = "1" color = "0x62ba0e"/>
         <item icon="BWork" id="6" label="工作经验" style = "1" color = "0xe96e28"/>
-        <item icon="BContract" id="7" label="" style = "1" color = "0x00ccff"/>
+        <item icon="BContract" id="7" label="帮助" style = "1" color = "0x00ccff"/>
     </menus>
 </root>

@@ -14,7 +14,8 @@
         <item icon="BRocket" id="4" label="技能"  style = "0" color = "0xe96e28"/>
         
         <item icon="BPapers" id="5" label="项目经验" style = "1" color = "0x62ba0e"/>
-        <item icon="BWork" id="6" label="工作经验" style = "1" color = "0xe96e28"/>
+        <item icon="BWork" id="6" label="技术博客" style = "1" color = "0xe96e28"/>
         <item icon="BContract" id="7" label="帮助" style = "1" color = "0x00ccff"/>
     </menus>
+    <rss url="http://feed.cnblogs.com/blog/u/147303/rss"/>
 </root>

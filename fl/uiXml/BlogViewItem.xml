@@ -1,0 +1,12 @@
+<View width="800" height="90" sceneColor="0xffffff" layers="1,1,0,0,第 1 层;2,1,0,0,第 2 层">
+  <Image skin="png.comp.img_blogview_bg" x="2" y="0" layer="2" sizeGrid="5,5,10,20" width="796" height="90" var="m_bg" visible="false"/>
+  <Label styleSkin="png.comp.label" x="2" y="1" layer="1" width="771" height="22" size="16" bold="true" autoSize="left" var="titleLabel" color="0x333333"/>
+  <Label styleSkin="png.comp.label" x="4" y="25" layer="1" multiline="true" wordWrap="true" width="781" height="55" autoSize="left" indent="20" isHtml="true" leading="5" letterSpacing="0.5" mouseEnabled="false" mouseChildren="true" var="desLabel"/>
+  <Image skin="png.comp.img_ref" x="631" y="63" layer="1" alpha="0.8" width="19" height="16"/>
+  <Image skin="png.comp.img_commit" x="686" y="65" layer="1" alpha="0.5" width="15" height="12"/>
+  <Image skin="png.comp.img_read" x="730" y="66" layer="1" alpha="0.5"/>
+  <Label styleSkin="png.comp.label" x="648" y="62" layer="1" var="m_refLabel" width="34" height="18" autoSize="left" text="11"/>
+  <Label styleSkin="png.comp.label" x="700" y="62" layer="1" var="m_comLabel" width="30" height="18" text="11" autoSize="left"/>
+  <Label styleSkin="png.comp.label" x="748" y="62" layer="1" var="m_readLabel" width="33" height="18" text="999"/>
+  <Label styleSkin="png.comp.label" x="501" y="62" layer="1" width="128" height="18" var="dataLabel" autoSize="left" text="posted @ 2014-8-22"/>
+</View>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <info url="http://haroel.github.io/blog/fl/Main.html" version="v1.0.3beta" debug ="true"/>
+    <info url="http://haroel.github.io/blog/fl/Main.html" version="v1.0.4beta" debug ="0"/>
     <rightmenu>
     	<item label="Design by howe" separatorBefore="true" enabled = "false"/>
     	<item label="Copyright©2014 howe" separatorBefore="true" enabled = "false"/>
